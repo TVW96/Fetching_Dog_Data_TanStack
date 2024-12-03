@@ -17,10 +17,10 @@ export function DogFacts() {
 
     return (
         <div className='page-info'>
-            <h2>Dog Facts</h2>
+            <h1>Dog Facts</h1>
             <ul>
                 {data.data.map((fact) => (
-                    <li key={fact.id}>{fact.attributes.body}</li>
+                    <h2 key={fact.id}>"{fact.attributes.body}"</h2>
                 ))}
             </ul>
         </div>
