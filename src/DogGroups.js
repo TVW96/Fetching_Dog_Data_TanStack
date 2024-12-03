@@ -49,7 +49,7 @@ export function DogGroups() {
                             onMouseEnter={() => setHoveredGroupId(group.id)}
                             onMouseLeave={() => setHoveredGroupId(null)}
                         >
-                            <h3>{group.attributes.name}</h3>
+                            <li>{group.attributes.name}</li>
                             {hoveredGroupId === group.id && (
                                 <ul>
                                     <h5>Group Members: </h5>

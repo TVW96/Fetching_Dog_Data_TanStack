@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const fetchBreeds = async () => {
     const { data } = await axios.get('https://dogapi.dog/api/v2/breeds');
@@ -8,6 +9,7 @@ const fetchBreeds = async () => {
 };
 
 export default function DogBreeds() {
+
     const { data, isError, isLoading } = useQuery({
         queryKey: ['breed'],
         queryFn: fetchBreeds,
@@ -28,25 +30,27 @@ export default function DogBreeds() {
                         onMouseEnter={() => setHoveredBreedId(breed.id)}
                         onMouseLeave={() => setHoveredBreedId(null)}
                     >
-                        {breed.attributes.name}
+                        <Link to={`/breed/${breed.id}`}>{breed.attributes.name}</Link>
                     </li>
                 ))}
             </ul>
 
-            {hoveredBreedId ? (
-                <div className="hover-details">
-                    {data.data.map((breed) =>
-                        breed.id === hoveredBreedId ? (
-                            <div key={breed.id}>
-                                <h2 style={{
-                                    textDecoration: "underline"
-                                }}>{breed.attributes.name}</h2>
-                                <p>{breed.attributes.description}</p>
-                            </div>
-                        ) : null
-                    )}
-                </div>
-            ) : null}
+            {
+                hoveredBreedId ? (
+                    <div className="hover-details">
+                        {data.data.map((breed) =>
+                            breed.id === hoveredBreedId ? (
+                                <div key={breed.id}>
+                                    <h2 style={{
+                                        textDecoration: "underline"
+                                    }}>{breed.attributes.name}</h2>
+                                    <p>{breed.attributes.description}</p>
+                                </div>
+                            ) : null
+                        )}
+                    </div>
+                ) : null
+            }
         </div >
     );
 }
